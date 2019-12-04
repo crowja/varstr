@@ -1,0 +1,2 @@
+# varstr
+Variable length string.
