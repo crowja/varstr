@@ -1,2 +1,2 @@
-# varstr 1.1.1-dev0
+# varstr 1.2.0-dev0
 Variable length string.

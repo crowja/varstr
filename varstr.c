@@ -1,6 +1,6 @@
 /**
  *  @file varstr.c
- *  @version 1.1.1-dev0
+ *  @version 1.2.0-dev0
  *  @date Wed Nov 27 18:49:38 CST 2019
  *  @copyright %COPYRIGHT%
  *  @brief FIXME
@@ -23,7 +23,7 @@
 #endif
 #define _FREE(p)      ((NULL == (p)) ? (0) : (free((p)), (p) = NULL))
 
-static const char version[] = "1.1.1-dev0";
+static const char version[] = "1.2.0-dev0";
 
 struct varstr {
    unsigned    size;
