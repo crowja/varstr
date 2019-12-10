@@ -9,7 +9,7 @@ main(void)
 
    printf("%s\t%s\t%s\n", "varstr", "t/test01", (NULL == z ? "failed" : "passed"));
 
-   varstr_free(z);
+   varstr_free(&z);
 
    return 0;
 }

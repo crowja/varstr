@@ -49,7 +49,8 @@ test_constr(void)
 
    z = varstr_new();
    ASSERT("Constructor test", z);
-   varstr_free(z);
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
 }
 
 #if 0
@@ -62,7 +63,8 @@ test_stub(void)
 
    z = varstr_new();
    ASSERT("... TEST STUB ...", z);
-   varstr_free(z);
+   varstr_free(&z);
+   ASSERT_EQUALS(&z);
 }
 #endif
 
