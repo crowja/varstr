@@ -1,6 +1,6 @@
 /**
  *  @file varstr.c
- *  @version 1.2.0-dev0
+ *  @version 1.3.0-dev0
  *  @date Tue Dec 10 13:43:59 CST 2019
  *  @copyright %COPYRIGHT%
  *  @brief FIXME
@@ -58,7 +58,7 @@ varstr_free(struct varstr **pp)
 const char *
 varstr_version(void)
 {
-   return "1.2.0-dev0";
+   return "1.3.0-dev0";
 }
 
 int

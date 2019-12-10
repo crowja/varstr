@@ -1,6 +1,6 @@
 /**
  *  @file varstr.h
- *  @version 1.2.0-dev0
+ *  @version 1.3.0-dev0
  *  @date Tue Dec 10 13:43:59 CST 2019
  *  @copyright %COPYRIGHT%
  *  @brief FIXME
