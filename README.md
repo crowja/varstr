@@ -9,6 +9,7 @@ C-scrap class providing a variable length string.
     int         varstr_free(struct varstr **pp);
     /* Return the version of this package */
     const char *varstr_version(void);
+
     /* Sets parameters for the internal buffer */
     int         varstr_buffersize(struct varstr *p, unsigned size, unsigned extend);
     /* Concatenate a string to the end of a varstr object */
