@@ -1,6 +1,9 @@
 # varstr 1.3.0-dev0
 
-C-scrap class providing a variable length string.
+C-scrap class providing a variable length string. Useful for building up a
+string.
+
+## From the prototypes:
 
 ```c
     /* Create and return a new varstr object */
