@@ -35,7 +35,9 @@ const char *varstr_version(void);
 /**
  *  @brief Sets parameters for the internal buffer.
  *  @details A varstr has an internal buffer that gets extended as needed. This
- *    method allows the user to modify these. Typically there is no need to.
+ *    method allows the user to modify the parameters controlling its current 
+ *    size and its current (additive) extension. Typically there is no need to
+ *    do this.
  *  @param[in, out] p is a struct varstr * created by varstr_new().
  *  @param[in] size. Attempt to set the internal buffer size to this. If the internal
  *    buffer requires more than this, it will retain its current size.
