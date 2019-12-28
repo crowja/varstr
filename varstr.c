@@ -1,7 +1,7 @@
 /**
  *  @file varstr.c
  *  @version 1.3.0-dev0
- *  @date Tue Dec 10 13:43:59 CST 2019
+ *  @date Fri Dec 27 20:10:33 CST 2019
  *  @copyright %COPYRIGHT%
  *  @brief FIXME
  *  @details FIXME
