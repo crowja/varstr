@@ -1,6 +1,6 @@
 /**
  *  @file varstr.c
- *  @version 1.3.0-dev0
+ *  @version 1.4.0-dev0
  *  @date Fri Dec 27 20:10:33 CST 2019
  *  @copyright 2020 John A. Crow <crowja@gmail.com>
  *  @license Unlicense <http://unlicense.org/>
@@ -57,7 +57,7 @@ varstr_free(struct varstr **pp)
 const char *
 varstr_version(void)
 {
-   return "1.3.0-dev0";
+   return "1.4.0-dev0";
 }
 
 int
