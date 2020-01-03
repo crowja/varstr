@@ -58,8 +58,8 @@ indent: stamp
 	done 
 
 stamp:
-	@bash stamper.bash varstr.c
-	@bash stamper.bash varstr.h
+	@stamper.bash varstr.c
+	@stamper.bash varstr.h
 
 clean:
 	@/bin/rm -f varstr.o *.o *~ *.BAK *.bak core.*
