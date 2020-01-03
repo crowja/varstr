@@ -23,14 +23,14 @@ string.
     void        varstr_chomp(struct varstr *p);
     /* Remove all whitespace from a varstr */
     void        varstr_compact(struct varstr *p);
-    /* Reset to the emptry varstr */
+    /* Reset to the empty varstr */
     void        varstr_empty(struct varstr *p);
-    /* Remove whitespace from both ends */
-    void        varstr_lrtrim(struct varstr *g);
     /* Set the extension size for a varstr object */
     unsigned    varstr_extend(struct varstr *p, unsigned extend);
     /* Initialize a varstr object */
     unsigned    varstr_init(struct varstr *p, unsigned extend);
+    /* Remove whitespace from both ends */
+    void        varstr_lrtrim(struct varstr *g);
     /* Get the pointer to the internal buffer holding the string */
     char       *varstr_str(struct varstr *p);
     /* Get the string represented by the varstr */
