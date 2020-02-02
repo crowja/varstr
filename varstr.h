@@ -84,7 +84,9 @@ void        varstr_empty(struct varstr *p);
  *    represented by a varstr.
  *  @param[in, out] p is a struct varstr * created by varstr_new().
  */
-void        varstr_lrtrim(struct varstr *g);
+void        varstr_lrtrim(struct varstr *p);
+
+void        varstr_ltrim(struct varstr *p);
 
 /**
  *  @brief Set the extension size for a varstr object
@@ -100,6 +102,9 @@ unsigned    varstr_extend(struct varstr *p, unsigned extend);
  *  @details Same as varstr_extend().
  */
 unsigned    varstr_init(struct varstr *p, unsigned extend);
+
+
+void        varstr_rtrim(struct varstr *p);
 
 /**
  *  @brief Get the pointer to the internal buffer holding the string.

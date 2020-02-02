@@ -90,17 +90,17 @@ test_cat_to_s_cat(void)
 }
 
 static void
-test_chomp(void)
+test_rtrim(void)
 {
    struct varstr *z = varstr_new();
    char        x1[] = "Now is the time for all good hounds   \n\n";
    char        x2[] = "Now is the time for all good hounds";
 
-   _printf_test_name("test_chomp", "varstr_chomp");
+   _printf_test_name("test_rtrim", "varstr_rtrim");
 
    varstr_cat(z, x1);
    ASSERT_STRING_EQUALS(x1, varstr_str(z));
-   varstr_chomp(z);
+   varstr_rtrim(z);
    ASSERT_STRING_EQUALS(x2, varstr_str(z));
 
    varstr_free(&z);
@@ -108,21 +108,81 @@ test_chomp(void)
 }
 
 static void
-test_lrtrim(void)
+test_rtrim_empty(void)
 {
    struct varstr *z = varstr_new();
-   char        x1[] = "\t   \n Now is the time for all good hounds\t   \n\n";
+   char        x[] = "   \t\t \n\n\t                 \n\n";
+
+   _printf_test_name("test_rtrim_empty", "varstr_rtrim");
+
+   varstr_cat(z, x);
+   ASSERT_STRING_EQUALS(x, varstr_str(z));
+   varstr_rtrim(z);
+   ASSERT_STRING_EQUALS("", varstr_str(z));
+
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+static void
+test_rtrim_null(void)
+{
+   struct varstr *z = varstr_new();
+
+   _printf_test_name("test_rtrim_null", "varstr_rtrim");
+
+   varstr_rtrim(z);
+   ASSERT_STRING_EQUALS("", varstr_str(z));
+
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+static void
+test_ltrim(void)
+{
+   struct varstr *z = varstr_new();
+   char        x1[] = "\t   \n Now is the time for all good hounds";
    char        x2[] = "Now is the time for all good hounds";
 
-   _printf_test_name("test_lrtrim", "varstr_lrtrim");
+   _printf_test_name("test_ltrim", "varstr_ltrim");
 
    varstr_cat(z, x1);
    ASSERT_STRING_EQUALS(x1, varstr_str(z));
-   varstr_lrtrim(z);
-   /*
-      printf("Trimmed value is \"%s\"\n", varstr_str(z));
-    */
+   varstr_ltrim(z);
    ASSERT_STRING_EQUALS(x2, varstr_str(z));
+
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+
+static void
+test_ltrim_empty(void)
+{
+   struct varstr *z = varstr_new();
+   char        x[] = "   \t\t \n\n\t                 \n\n";
+
+   _printf_test_name("test_ltrim_empty", "varstr_ltrim");
+
+   varstr_cat(z, x);
+   ASSERT_STRING_EQUALS(x, varstr_str(z));
+   varstr_ltrim(z);
+   ASSERT_STRING_EQUALS("", varstr_str(z));
+
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+static void
+test_ltrim_null(void)
+{
+   struct varstr *z = varstr_new();
+
+   _printf_test_name("test_ltrim_null", "varstr_ltrim");
+
+   varstr_ltrim(z);
+   ASSERT_STRING_EQUALS("", varstr_str(z));
 
    varstr_free(&z);
    ASSERT_EQUALS(NULL, z);
@@ -151,8 +211,12 @@ main(void)
    RUN(test_constr);
    RUN(test_cat_str);
    RUN(test_cat_to_s_cat);
-   RUN(test_chomp);
-   RUN(test_lrtrim);
+   RUN(test_rtrim);
+   RUN(test_rtrim_empty);
+   RUN(test_rtrim_null);
+   RUN(test_ltrim);
+   RUN(test_ltrim_empty);
+   RUN(test_ltrim_null);
 
    return TEST_REPORT();
 }

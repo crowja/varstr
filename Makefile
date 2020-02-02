@@ -1,6 +1,7 @@
 SHELL = /bin/sh
 
 GCC_STRICT_FLAGS = -pedantic -ansi -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -O2
+GCC_SANITIZE_FLAGS = -fsanitize=address -fsanitize=undefined -fno-omit-frame-pointer
 CPPFLAGS = -I.
 CFLAGS = $(GCC_STRICT_FLAGS)
 LDFLAGS =
@@ -9,10 +10,12 @@ OTHER_INCLUDE =
 INCLUDE_FLAGS =
 LDFLAGS_EFENCE = -L/usr/local/lib -lefence $(LDFLAGS)
 
-.PHONY: check vcheck indent stamp clean
+.PHONY: check vcheck scheck stress indent stamp clean
 
 ##TESTS = t/test01 t/test02 t/test03 t/test04 t/test
 TESTS = t/test
+STRESS = t/stress
+
 # TODO Convert tests to tinytest.h. Already started by stubbing in t/test.c,
 # so move the existing tests into this framework. Varstr will likely be used
 # heavily in other scraps, so test it heavily under Valgrind and Electric Fence.
@@ -20,40 +23,64 @@ TESTS = t/test
 varstr.o: varstr.c varstr.h
 	$(CC) -c $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(OTHER_SOURCE) -o $@ varstr.c
 
-check: varstr.o
+check:
 	@for i in $(TESTS); \
 	do \
 	  echo "--------------------"; \
 	  echo "Running test $$i"; \
 	  ( $(CC)    $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(OTHER_SOURCE) \
-		-o t/a.out $$i.c varstr.o $(LDFLAGS) ) \
+		-o t/a.out $$i.c varstr.c $(LDFLAGS) ) \
 	  && ( t/a.out ); \
 	done 
 
-vcheck: varstr.o
+vcheck:
 	@for i in $(TESTS); \
 	do \
 	  echo "--------------------"; \
 	  echo "Running test $$i"; \
 	  ( $(CC) -g $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(OTHER_SOURCE) \
-		-o t/a.out $$i.c varstr.o $(LDFLAGS) ) \
+		-o t/a.out $$i.c varstr.c $(LDFLAGS) ) \
 	  && ( valgrind t/a.out ); \
 	done 
 
-echeck: varstr.o
+scheck:
+	@for i in $(TESTS); \
+	do \
+	  echo "--------------------"; \
+	  echo "Running test $$i"; \
+	  ( $(CC)    $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(GCC_SANITIZE_FLAGS) $(OTHER_SOURCE) \
+		-o t/a.out $$i.c varstr.c $(LDFLAGS) ) \
+	  && ( t/a.out ); \
+	done 
+
+echeck: 
 	@for i in $(TESTS); \
 	do \
 	  echo "--------------------"; \
 	  echo "Running test $$i"; \
 	  ( $(CC)    $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(OTHER_SOURCE) \
-		-o t/a.out $$i.c varstr.o $(LDFLAGS_EFENCE) ) \
+		-o t/a.out $$i.c varstr.c $(LDFLAGS_EFENCE) ) \
 	  && (  LD_PRELOAD=libefence.so ./t/a.out ); \
+	done 
+
+stress:
+	@for i in $(STRESS); \
+	do \
+	  echo "--------------------"; \
+	  echo "Running test $$i"; \
+	  ( $(CC)    $(CPPFLAGS) $(OTHER_INCLUDE) $(CFLAGS) $(OTHER_SOURCE) \
+		-o t/a.out $$i.c varstr.c $(LDFLAGS) ) \
+	  && ( t/a.out ); \
 	done 
 
 indent:
 	@indent $(INDENT_FLAGS) varstr.c
 	@indent $(INDENT_FLAGS) varstr.h
 	@for i in $(TESTS); \
+	do \
+	  indent $(INDENT_FLAGS) $$i.c; \
+	done 
+	@for i in $(STRESS); \
 	do \
 	  indent $(INDENT_FLAGS) $$i.c; \
 	done 
