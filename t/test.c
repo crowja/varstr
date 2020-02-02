@@ -45,7 +45,7 @@ test_constr(void)
 {
    struct varstr *z;
 
-   _printf_test_name("test_constr()", NULL);
+   _printf_test_name("test_constr", "varstr_new, varstr_free");
 
    z = varstr_new();
    ASSERT("Constructor test", z);
@@ -53,7 +53,82 @@ test_constr(void)
    ASSERT_EQUALS(NULL, z);
 }
 
-#if 0
+static void
+test_cat_str(void)
+{
+   struct varstr *z = varstr_new();
+   char        x[] = "Now is the time for all good hounds";
+
+   _printf_test_name("test_cat_str", "varstr_cat, varstr_str");
+
+   varstr_cat(z, x);
+   ASSERT_STRING_EQUALS(x, varstr_str(z));
+
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+static void
+test_cat_to_s_cat(void)
+{
+   struct varstr *z = varstr_new();
+   char        x[] = "Now is the time for all good hounds";
+   char        x2[] =
+    "Now is the time for all good houndsNow is the time for all good hounds";
+   char       *cp;
+
+   _printf_test_name("test_cat_to_s_cat", "varstr_cat, var_to_s, varstr_str");
+
+   varstr_cat(z, x);
+   ASSERT_STRING_EQUALS(x, varstr_str(z));
+   varstr_cat(z, cp = varstr_to_s(z));
+   ASSERT_STRING_EQUALS(x2, varstr_str(z));
+   free(cp);
+
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+static void
+test_chomp(void)
+{
+   struct varstr *z = varstr_new();
+   char        x1[] = "Now is the time for all good hounds   \n\n";
+   char        x2[] = "Now is the time for all good hounds";
+
+   _printf_test_name("test_chomp", "varstr_chomp");
+
+   varstr_cat(z, x1);
+   ASSERT_STRING_EQUALS(x1, varstr_str(z));
+   varstr_chomp(z);
+   ASSERT_STRING_EQUALS(x2, varstr_str(z));
+
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+static void
+test_lrtrim(void)
+{
+   struct varstr *z = varstr_new();
+   char        x1[] = "\t   \n Now is the time for all good hounds\t   \n\n";
+   char        x2[] = "Now is the time for all good hounds";
+
+   _printf_test_name("test_lrtrim", "varstr_lrtrim");
+
+   varstr_cat(z, x1);
+   ASSERT_STRING_EQUALS(x1, varstr_str(z));
+   varstr_lrtrim(z);
+   /*
+      printf("Trimmed value is \"%s\"\n", varstr_str(z));
+    */
+   ASSERT_STRING_EQUALS(x2, varstr_str(z));
+
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+#if 0                                            /* 12yy */
 static void
 test_stub(void)
 {
@@ -64,7 +139,7 @@ test_stub(void)
    z = varstr_new();
    ASSERT("... TEST STUB ...", z);
    varstr_free(&z);
-   ASSERT_EQUALS(&z);
+   ASSERT_EQUALS(NULL, z);
 }
 #endif
 
@@ -74,6 +149,10 @@ main(void)
    printf("%s\n", varstr_version());
 
    RUN(test_constr);
+   RUN(test_cat_str);
+   RUN(test_cat_to_s_cat);
+   RUN(test_chomp);
+   RUN(test_lrtrim);
 
    return TEST_REPORT();
 }

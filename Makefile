@@ -11,7 +11,8 @@ LDFLAGS_EFENCE = -L/usr/local/lib -lefence $(LDFLAGS)
 
 .PHONY: check vcheck indent stamp clean
 
-TESTS = t/test01 t/test02 t/test03 t/test04 t/test
+##TESTS = t/test01 t/test02 t/test03 t/test04 t/test
+TESTS = t/test
 # TODO Convert tests to tinytest.h. Already started by stubbing in t/test.c,
 # so move the existing tests into this framework. Varstr will likely be used
 # heavily in other scraps, so test it heavily under Valgrind and Electric Fence.
@@ -49,7 +50,7 @@ echeck: varstr.o
 	  && (  LD_PRELOAD=libefence.so ./t/a.out ); \
 	done 
 
-indent: stamp
+indent:
 	@indent $(INDENT_FLAGS) varstr.c
 	@indent $(INDENT_FLAGS) varstr.h
 	@for i in $(TESTS); \
