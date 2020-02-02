@@ -41,7 +41,7 @@ varstr_new(void)
    tp->x = (char *) calloc(1, sizeof(char));
    tp->len = 0;
    tp->size = 0;
-   tp->extend = 0;
+   tp->extend = 1;
 
    return tp;
 }
@@ -140,6 +140,9 @@ varstr_chomp(struct varstr *p)
    char       *cp = varstr_str(p);
    unsigned    i = p->len;
 
+   if (p->len == 0)
+      return;
+
    while (i > 0) {
       i -= 1;
       if (!isspace(cp[i]))
@@ -192,24 +195,27 @@ varstr_init(struct varstr *p, unsigned extend)
 }
 
 void
-varstr_lrtrim(struct varstr *g)
+varstr_lrtrim(struct varstr *p)
 {
-   char       *cp = g->x;
+   char       *cp = p->x;
    unsigned    i = 0, j = 0;
 
-   while (i < g->len) {
+   while (i < p->len) {
       if (!isspace(cp[i]))
          break;
       i += 1;
    }
 
-   while (i < g->len) {
+   while (i < p->len) {
       cp[j] = cp[i];
       i += 1;
       j += 1;
    }
 
-   varstr_chomp(g);
+   p->len = j;
+   cp[p->len] = '\n';
+
+   varstr_chomp(p);
 }
 
 char       *
