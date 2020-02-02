@@ -37,6 +37,7 @@ string.
     char       *varstr_to_s(struct varstr *p);
 ```
 
-For the call `varstr\_cat(p, x)`, `x` must not overlap with the internal buffer of
-`p`. For example `varstr\_cat(p, varstr\_str(p))` could yield unexpected results. If
-you really need to do something like that, use `varstr\_cat(p, varstr\_to\_s(p)`.
+For the call `varstr_cat(p, x)`, `x` must not overlap with the internal buffer of
+`p`. For example `varstr_cat(p, varstr_str(p))` likely will yield unexpected
+results. If you really need to do something like that, use
+`varstr_cat(p, varstr_to_s(p)`.
