@@ -15,14 +15,17 @@ main(void)
    printf("t/test02\t%s\n", varstr_version());
 
    err += (NULL == z ? 1 : 0);
+   printf("test02 check a %d\n", err);
 
    varstr_cat(z, str1);
    err += (0 == strcmp(str1, varstr_str(z)) ? 0 : 1);
+   printf("test02 check b %d\n", err);
 
    varstr_empty(z);
    varstr_cat(z, str1);
    varstr_lrtrim(z);
    err += (0 == strcmp(str2, varstr_str(z)) ? 0 : 1);
+   printf("test02 check c %d\n", err);
 
    varstr_empty(z);
    varstr_cat(z, str1);
@@ -30,6 +33,7 @@ main(void)
    varstr_catc(z, 'Z');
    varstr_catc(z, 'Z');
    err += (0 == strcmp(str3, varstr_str(z)) ? 0 : 1);
+   printf("test02 check d %d\n", err);
 
    printf("%s\t%s\t%s\n", "varstr", "t/test02", (err > 0 ? "failed" : "passed"));
 
