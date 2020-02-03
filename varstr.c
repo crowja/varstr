@@ -39,6 +39,7 @@ varstr_new(void)
       return NULL;
 
    tp->x = (char *) calloc(1, sizeof(char));
+   (tp->x)[0] = '\0';
    tp->len = 0;
    tp->size = 0;
    tp->extend = 1;
