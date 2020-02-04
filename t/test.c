@@ -188,13 +188,82 @@ test_ltrim_null(void)
    ASSERT_EQUALS(NULL, z);
 }
 
+static void
+test_catc(void)
+{
+   struct varstr *z;
+   char        x[] = " a b c defghij\n k lmnopq r s t u v w x y z . . .";
+   int         i, len = sizeof(x);
+
+   _printf_test_name("test_stub", "varstr_catc");
+
+   z = varstr_new();
+
+   for (i = 0; i < len; i++)
+      varstr_catc(z, x[i]);
+
+   ASSERT_STRING_EQUALS(x, varstr_str(z));
+
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+static void
+test_compact(void)
+{
+   struct varstr *z;
+   char        x1[] = "\f\vabc\t   def\r ghi\n\n\n jkl     ";
+   char        x2[] = "abcdefghijkl";
+   _printf_test_name("test_compact", "varstr_compact");
+
+   z = varstr_new();
+   varstr_cat(z, x1);
+   varstr_compact(z);
+   ASSERT_STRING_EQUALS(x2, varstr_str(z));
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+static void
+test_compact_null(void)
+{
+   struct varstr *z;
+   char        x[] = "";
+   _printf_test_name("test_compact_null", "varstr_compact");
+
+   z = varstr_new();
+   varstr_compact(z);
+   ASSERT_STRING_EQUALS(x, varstr_str(z));
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
+static void
+test_change_case(void)
+{
+   struct varstr *z;
+   char        x1[] = "12345xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\t\n*";
+   char        x2[] = "12345XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\t\n*";
+   _printf_test_name("test_change_case", "varstr_tolower, varstr_toupper");
+
+   z = varstr_new();
+   varstr_cat(z, x1);
+   varstr_toupper(z);
+   ASSERT_STRING_EQUALS(x2, varstr_str(z));
+   varstr_tolower(z);
+   ASSERT_STRING_EQUALS(x1, varstr_str(z));
+
+   varstr_free(&z);
+   ASSERT_EQUALS(NULL, z);
+}
+
 #if 0                                            /* 12yy */
 static void
 test_stub(void)
 {
    struct varstr *z;
 
-   _printf_test_name("test_stub()", NULL);
+   _printf_test_name("test_stub", NULL);
 
    z = varstr_new();
    ASSERT("... TEST STUB ...", z);
@@ -217,6 +286,10 @@ main(void)
    RUN(test_ltrim);
    RUN(test_ltrim_empty);
    RUN(test_ltrim_null);
+   RUN(test_catc);
+   RUN(test_compact);
+   RUN(test_compact_null);
+   RUN(test_change_case);
 
    return TEST_REPORT();
 }
