@@ -123,4 +123,7 @@ char       *varstr_str(struct varstr *p);
  */
 char       *varstr_to_s(struct varstr *p);
 
+void        varstr_tolower(struct varstr *p);
+void        varstr_toupper(struct varstr *p);
+
 #endif

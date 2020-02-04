@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <ctype.h>
 #include "varstr.h"
 
 #ifdef  _IS_NULL
@@ -237,6 +238,22 @@ char       *
 varstr_str(struct varstr *p)
 {
    return p->x;
+}
+
+void
+varstr_tolower(struct varstr *p)
+{
+   unsigned    i;
+   for (i = 0; i < p->len; i++)
+      (p->x)[i] = tolower((p->x)[i]);
+}
+
+void
+varstr_toupper(struct varstr *p)
+{
+   unsigned    i;
+   for (i = 0; i < p->len; i++)
+      (p->x)[i] = toupper((p->x)[i]);
 }
 
 char       *
