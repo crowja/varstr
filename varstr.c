@@ -1,7 +1,7 @@
 /**
  *  @file varstr.c
  *  @version 3.1.0-dev0
- *  @date Sat Feb  1 20:29:50 CST 2020
+ *  @date Wed Feb  5 18:03:44 CST 2020
  *  @copyright 2020 John A. Crow <crowja@gmail.com>
  *  @license Unlicense <http://unlicense.org/>
  */
@@ -245,7 +245,7 @@ varstr_tolower(struct varstr *p)
 {
    unsigned    i;
    for (i = 0; i < p->len; i++)
-      (p->x)[i] = tolower((p->x)[i]);
+      (p->x)[i] = tolower((unsigned char) (p->x)[i]);
 }
 
 void
@@ -253,7 +253,7 @@ varstr_toupper(struct varstr *p)
 {
    unsigned    i;
    for (i = 0; i < p->len; i++)
-      (p->x)[i] = toupper((p->x)[i]);
+      (p->x)[i] = toupper((unsigned char) (p->x)[i]);
 }
 
 char       *
