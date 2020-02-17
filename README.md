@@ -1,4 +1,4 @@
-# varstr 3.1.1-dev0.
+# varstr 3.2.0-dev0.
 
 C-scrap class providing a variable length string. Useful for building up a
 string.
