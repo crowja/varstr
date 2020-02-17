@@ -9,6 +9,7 @@ OTHER_SOURCE =
 OTHER_INCLUDE =
 INCLUDE_FLAGS =
 LDFLAGS_EFENCE = -L/usr/local/lib -lefence $(LDFLAGS)
+STAMPER = stamper
 
 .PHONY: check vcheck scheck stress indent stamp clean
 
@@ -86,8 +87,8 @@ indent:
 	done 
 
 stamp:
-	@stamper.bash varstr.c
-	@stamper.bash varstr.h
+	@$(STAMPER) varstr.c
+	@$(STAMPER) varstr.h
 
 clean:
 	@/bin/rm -f varstr.o *.o *~ *.BAK *.bak core.*

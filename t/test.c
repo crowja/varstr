@@ -4,35 +4,35 @@
 #include "varstr.h"
 #include "t/tinytest.h"
 
-#ifdef  _COLOR_CODE
-#undef  _COLOR_CODE
+#ifdef  COLOR_CODE
+#undef  COLOR_CODE
 #endif
-#define _COLOR_CODE       0x1B
+#define COLOR_CODE       0x1B
 
-#ifdef  _COLOR_RED
-#undef  _COLOR_RED
+#ifdef  COLOR_RED
+#undef  COLOR_RED
 #endif
-#define _COLOR_RED        "[1;31m"
+#define COLOR_RED        "[1;31m"
 
-#ifdef  _COLOR_GREEN
-#undef  _COLOR_GREEN
+#ifdef  COLOR_GREEN
+#undef  COLOR_GREEN
 #endif
-#define _COLOR_GREEN      "[1;32m"
+#define COLOR_GREEN      "[1;32m"
 
-#ifdef  _COLOR_YELLOW
-#undef  _COLOR_YELLOW
+#ifdef  COLOR_YELLOW
+#undef  COLOR_YELLOW
 #endif
-#define _COLOR_YELLOW     "[1;33m"
+#define COLOR_YELLOW     "[1;33m"
 
-#ifdef  _COLOR_RESET
-#undef  _COLOR_RESET
+#ifdef  COLOR_RESET
+#undef  COLOR_RESET
 #endif
-#define _COLOR_RESET      "[0m"
+#define COLOR_RESET      "[0m"
 
 static void
-_printf_test_name(char *name, char *info)
+printf_test_name(char *name, char *info)
 {
-   printf("%c%s%s%c%s", _COLOR_CODE, _COLOR_YELLOW, name, _COLOR_CODE, _COLOR_RESET);
+   printf("%c%s%s%c%s", COLOR_CODE, COLOR_YELLOW, name, COLOR_CODE, COLOR_RESET);
 
    if (NULL != info)
       printf(" [%s]\n", info);
@@ -45,7 +45,7 @@ test_constr(void)
 {
    struct varstr *z;
 
-   _printf_test_name("test_constr", "varstr_new, varstr_free");
+   printf_test_name("test_constr", "varstr_new, varstr_free");
 
    z = varstr_new();
    ASSERT("Constructor test", z);
@@ -59,7 +59,7 @@ test_cat_str(void)
    struct varstr *z = varstr_new();
    char        x[] = "Now is the time for all good hounds";
 
-   _printf_test_name("test_cat_str", "varstr_cat, varstr_str");
+   printf_test_name("test_cat_str", "varstr_cat, varstr_str");
 
    varstr_cat(z, x);
    ASSERT_STRING_EQUALS(x, varstr_str(z));
@@ -77,7 +77,7 @@ test_cat_to_s_cat(void)
     "Now is the time for all good houndsNow is the time for all good hounds";
    char       *cp;
 
-   _printf_test_name("test_cat_to_s_cat", "varstr_cat, var_to_s, varstr_str");
+   printf_test_name("test_cat_to_s_cat", "varstr_cat, var_to_s, varstr_str");
 
    varstr_cat(z, x);
    ASSERT_STRING_EQUALS(x, varstr_str(z));
@@ -96,7 +96,7 @@ test_rtrim(void)
    char        x1[] = "Now is the time for all good hounds   \n\n";
    char        x2[] = "Now is the time for all good hounds";
 
-   _printf_test_name("test_rtrim", "varstr_rtrim");
+   printf_test_name("test_rtrim", "varstr_rtrim");
 
    varstr_cat(z, x1);
    ASSERT_STRING_EQUALS(x1, varstr_str(z));
@@ -113,7 +113,7 @@ test_rtrim_empty(void)
    struct varstr *z = varstr_new();
    char        x[] = "   \t\t \n\n\t                 \n\n";
 
-   _printf_test_name("test_rtrim_empty", "varstr_rtrim");
+   printf_test_name("test_rtrim_empty", "varstr_rtrim");
 
    varstr_cat(z, x);
    ASSERT_STRING_EQUALS(x, varstr_str(z));
@@ -129,7 +129,7 @@ test_rtrim_null(void)
 {
    struct varstr *z = varstr_new();
 
-   _printf_test_name("test_rtrim_null", "varstr_rtrim");
+   printf_test_name("test_rtrim_null", "varstr_rtrim");
 
    varstr_rtrim(z);
    ASSERT_STRING_EQUALS("", varstr_str(z));
@@ -145,7 +145,7 @@ test_ltrim(void)
    char        x1[] = "\t   \n Now is the time for all good hounds";
    char        x2[] = "Now is the time for all good hounds";
 
-   _printf_test_name("test_ltrim", "varstr_ltrim");
+   printf_test_name("test_ltrim", "varstr_ltrim");
 
    varstr_cat(z, x1);
    ASSERT_STRING_EQUALS(x1, varstr_str(z));
@@ -163,7 +163,7 @@ test_ltrim_empty(void)
    struct varstr *z = varstr_new();
    char        x[] = "   \t\t \n\n\t                 \n\n";
 
-   _printf_test_name("test_ltrim_empty", "varstr_ltrim");
+   printf_test_name("test_ltrim_empty", "varstr_ltrim");
 
    varstr_cat(z, x);
    ASSERT_STRING_EQUALS(x, varstr_str(z));
@@ -179,7 +179,7 @@ test_ltrim_null(void)
 {
    struct varstr *z = varstr_new();
 
-   _printf_test_name("test_ltrim_null", "varstr_ltrim");
+   printf_test_name("test_ltrim_null", "varstr_ltrim");
 
    varstr_ltrim(z);
    ASSERT_STRING_EQUALS("", varstr_str(z));
@@ -195,7 +195,7 @@ test_catc(void)
    char        x[] = " a b c defghij\n k lmnopq r s t u v w x y z . . .";
    int         i, len = sizeof(x);
 
-   _printf_test_name("test_stub", "varstr_catc");
+   printf_test_name("test_stub", "varstr_catc");
 
    z = varstr_new();
 
@@ -214,7 +214,7 @@ test_compact(void)
    struct varstr *z;
    char        x1[] = "\f\vabc\t   def\r ghi\n\n\n jkl     ";
    char        x2[] = "abcdefghijkl";
-   _printf_test_name("test_compact", "varstr_compact");
+   printf_test_name("test_compact", "varstr_compact");
 
    z = varstr_new();
    varstr_cat(z, x1);
@@ -229,7 +229,7 @@ test_compact_null(void)
 {
    struct varstr *z;
    char        x[] = "";
-   _printf_test_name("test_compact_null", "varstr_compact");
+   printf_test_name("test_compact_null", "varstr_compact");
 
    z = varstr_new();
    varstr_compact(z);
@@ -244,7 +244,7 @@ test_change_case(void)
    struct varstr *z;
    char        x1[] = "12345xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\t\n*";
    char        x2[] = "12345XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\t\n*";
-   _printf_test_name("test_change_case", "varstr_tolower, varstr_toupper");
+   printf_test_name("test_change_case", "varstr_tolower, varstr_toupper");
 
    z = varstr_new();
    varstr_cat(z, x1);
@@ -263,7 +263,7 @@ test_stub(void)
 {
    struct varstr *z;
 
-   _printf_test_name("test_stub", NULL);
+   printf_test_name("test_stub", NULL);
 
    z = varstr_new();
    ASSERT("... TEST STUB ...", z);

@@ -1,8 +1,8 @@
 /**
  *  @file varstr.c
  *  @version 3.1.1-dev0
- *  @date Wed Feb  5 18:03:44 CST 2020
- *  @copyright 2020 John A. Crow <crowja@gmail.com>
+ *  @date Sun Feb 16, 2020 07:32:15 PM CST
+ *  @copyright 2018-2020 John A. Crow <crowja@gmail.com>
  *  @license Unlicense <http://unlicense.org/>
  */
 
@@ -13,15 +13,15 @@
 #include <ctype.h>
 #include "varstr.h"
 
-#ifdef  _IS_NULL
-#undef  _IS_NULL
+#ifdef  IS_NULL
+#undef  IS_NULL
 #endif
-#define _IS_NULL(p)   ((NULL == (p)) ? (1) : (0))
+#define IS_NULL(p)   ((NULL == (p)) ? (1) : (0))
 
-#ifdef  _FREE
-#undef  _FREE
+#ifdef  FREE
+#undef  FREE
 #endif
-#define _FREE(p)      ((NULL == (p)) ? (0) : (free((p)), (p) = NULL))
+#define FREE(p)      ((NULL == (p)) ? (0) : (free((p)), (p) = NULL))
 
 struct varstr {
    unsigned    len;                         /* like strlen() */
@@ -36,7 +36,7 @@ varstr_new(void)
    struct varstr *tp;
 
    tp = (struct varstr *) malloc(sizeof(struct varstr));
-   if (_IS_NULL(tp))
+   if (IS_NULL(tp))
       return NULL;
 
    tp->x = (char *) calloc(1, sizeof(char));
@@ -51,8 +51,8 @@ varstr_new(void)
 int
 varstr_free(struct varstr **pp)
 {
-   _FREE((*pp)->x);
-   _FREE(*pp);
+   FREE((*pp)->x);
+   FREE(*pp);
    *pp = NULL;
 
    return 0;
@@ -73,7 +73,7 @@ varstr_buffersize(struct varstr *p, unsigned size, unsigned extend)
 
       cp = realloc(p->x, size * sizeof(char));
 
-      if (_IS_NULL(cp))
+      if (IS_NULL(cp))
          return 1;
 
       p->x = cp;
@@ -98,7 +98,7 @@ varstr_cat(struct varstr *p, char *x)
 
    if (need >= p->size) {
       p->x = (char *) realloc(p->x, (need + p->extend) * sizeof(*(p->x)));
-      if (_IS_NULL(p->x)) {
+      if (IS_NULL(p->x)) {
          fprintf(stderr, "[ERROR] %s %d: Cannot allocate memory\n", __FILE__, __LINE__);
          exit(1);
       }
@@ -124,7 +124,7 @@ varstr_catc(struct varstr *p, char x)
 
    if (need >= p->size) {
       p->x = (char *) realloc(p->x, (need + p->extend) * sizeof(char));
-      if (_IS_NULL(p->x)) {
+      if (IS_NULL(p->x)) {
          fprintf(stderr, "[ERROR] %s %d: Cannot allocate memory\n", __FILE__, __LINE__);
          exit(1);
       }
@@ -263,5 +263,5 @@ varstr_to_s(struct varstr *p)
    return strcpy(str, p->x);
 }
 
-#undef _IS_NULL
-#undef _FREE
+#undef IS_NULL
+#undef FREE
