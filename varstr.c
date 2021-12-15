@@ -24,10 +24,10 @@
 #define FREE(p)      ((NULL == (p)) ? (0) : (free((p)), (p) = NULL))
 
 struct varstr {
-   unsigned    len;                         /* like strlen() */
-   unsigned    size;
-   unsigned    extend;
-   char       *x;
+   unsigned  len;                           /* like strlen() */
+   unsigned  size;
+   unsigned  extend;
+   char     *x;
 };
 
 struct varstr *
@@ -67,7 +67,7 @@ varstr_version(void)
 int
 varstr_buffersize(struct varstr *p, unsigned size, unsigned extend)
 {
-   char       *cp;
+   char     *cp;
 
    if (size > p->size) {
 
@@ -88,12 +88,12 @@ varstr_buffersize(struct varstr *p, unsigned size, unsigned extend)
 void
 varstr_cat(struct varstr *p, char *x)
 {
-   unsigned    lenx = strlen(x);
+   unsigned  lenx = strlen(x);
 
 #if 0
-   unsigned    need = 1 + strlen(p->x) + strlen(x);
+   unsigned  need = 1 + strlen(p->x) + strlen(x);
 #else
-   unsigned    need = 1 + p->len + lenx;
+   unsigned  need = 1 + p->len + lenx;
 #endif
 
    if (need >= p->size) {
@@ -120,7 +120,7 @@ varstr_cat(struct varstr *p, char *x)
 void
 varstr_catc(struct varstr *p, char x)
 {
-   unsigned    need = 2 + p->len;
+   unsigned  need = 2 + p->len;
 
    if (need >= p->size) {
       p->x = (char *) realloc(p->x, (need + p->extend) * sizeof(char));
@@ -145,7 +145,7 @@ varstr_chomp(struct varstr *p)
 void
 varstr_compact(struct varstr *p)
 {
-   unsigned    i, j;
+   unsigned  i, j;
 
    for (i = 0, j = 0; i < p->len; i++) {
       if (isspace((p->x)[i]))
@@ -180,6 +180,12 @@ varstr_init(struct varstr *p, unsigned extend)
    return varstr_extend(p, extend);
 }
 
+unsigned
+varstr_len(struct varstr *p)
+{
+   return p->len;
+}
+
 void
 varstr_lrtrim(struct varstr *p)
 {
@@ -190,7 +196,7 @@ varstr_lrtrim(struct varstr *p)
 void
 varstr_ltrim(struct varstr *p)
 {
-   unsigned    i = 0, j = 0;
+   unsigned  i = 0, j = 0;
 
    while (i < p->len) {
       if (!isspace((p->x)[i]))
@@ -211,7 +217,7 @@ varstr_ltrim(struct varstr *p)
 void
 varstr_rtrim(struct varstr *p)
 {
-   unsigned    i = p->len;
+   unsigned  i = p->len;
 
    if (p->len == 0)
       return;
@@ -234,7 +240,7 @@ varstr_rtrim(struct varstr *p)
    (p->x)[p->len] = '\0';
 }
 
-char       *
+char     *
 varstr_str(struct varstr *p)
 {
    return p->x;
@@ -243,7 +249,7 @@ varstr_str(struct varstr *p)
 void
 varstr_tolower(struct varstr *p)
 {
-   unsigned    i;
+   unsigned  i;
    for (i = 0; i < p->len; i++)
       (p->x)[i] = tolower((unsigned char) (p->x)[i]);
 }
@@ -251,15 +257,15 @@ varstr_tolower(struct varstr *p)
 void
 varstr_toupper(struct varstr *p)
 {
-   unsigned    i;
+   unsigned  i;
    for (i = 0; i < p->len; i++)
       (p->x)[i] = toupper((unsigned char) (p->x)[i]);
 }
 
-char       *
+char     *
 varstr_to_s(struct varstr *p)
 {
-   char       *str = (char *) malloc((1 + p->len) * sizeof(char));
+   char     *str = (char *) malloc((1 + p->len) * sizeof(char));
    return strcpy(str, p->x);
 }
 

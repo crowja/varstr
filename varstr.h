@@ -23,7 +23,7 @@ struct varstr *varstr_new(void);
  *    On success set to NULL.
  *  @returns 0.
  */
-int         varstr_free(struct varstr **pp);
+int       varstr_free(struct varstr **pp);
 
 /**
  *  @brief Return the version of this package
@@ -43,40 +43,49 @@ const char *varstr_version(void);
  *  @param[in] extend. Change the internal buffer (additive) extension to this.
  *  @returns 0 if successful, 1 otherwise.
  */
-int         varstr_buffersize(struct varstr *p, unsigned size, unsigned extend);
+int       varstr_buffersize(struct varstr *p, unsigned size, unsigned extend);
 
 /**
  *  @brief Concatenate a string to the end of a varstr object.
  *  @param[in, out] p is a struct varstr * created by varstr_new().
  *  @param[in] x is a string to concatenate.
  */
-void        varstr_cat(struct varstr *p, char *x);
+void      varstr_cat(struct varstr *p, char *x);
 
 /**
  *  @brief Concatenate a character to the end of a varstr object.
  *  @param[in, out] p is a struct varstr * created by varstr_new().
  *  @param x FIXME
  */
-void        varstr_catc(struct varstr *p, char x);
+void      varstr_catc(struct varstr *p, char x);
 
 /**
  *  @brief Remove whitespace from the end of a varstr object.
  *  @param[in, out] p is a struct varstr * created by varstr_new().
  */
-void        varstr_chomp(struct varstr *p);
+void      varstr_chomp(struct varstr *p);
 
 /**
  *  @brief Remove all whitespace from a varstr.
  *  @param[in, out] p is a struct varstr * created by varstr_new().
  */
-void        varstr_compact(struct varstr *p);
+void      varstr_compact(struct varstr *p);
 
 /**
  *  @brief Reset to the emptry varstr.
  *  @details Reset the varstr so that it represents the empty string.
  *  @param[in, out] p is a struct varstr * created by varstr_new().
  */
-void        varstr_empty(struct varstr *p);
+void      varstr_empty(struct varstr *p);
+
+/**
+ *  @brief Return the length of the varstr.
+ *  @details Return the number of characters in the represented string.
+ *  @param[in, out] p is a struct varstr * created by varstr_new().
+ *  @returns String length.
+ */
+
+unsigned  varstr_len(struct varstr *p);
 
 /**
  *  @brief Remove whitespace from both ends.
@@ -84,9 +93,9 @@ void        varstr_empty(struct varstr *p);
  *    represented by a varstr.
  *  @param[in, out] p is a struct varstr * created by varstr_new().
  */
-void        varstr_lrtrim(struct varstr *p);
+void      varstr_lrtrim(struct varstr *p);
 
-void        varstr_ltrim(struct varstr *p);
+void      varstr_ltrim(struct varstr *p);
 
 /**
  *  @brief Set the extension size for a varstr object
@@ -95,22 +104,22 @@ void        varstr_ltrim(struct varstr *p);
  *    resizing the internal buffer.
  *  @returns the size of the new extension.
  */
-unsigned    varstr_extend(struct varstr *p, unsigned extend);
+unsigned  varstr_extend(struct varstr *p, unsigned extend);
 
 /**
  *  @brief Initialize a varstr object
  *  @details Same as varstr_extend().
  */
-unsigned    varstr_init(struct varstr *p, unsigned extend);
+unsigned  varstr_init(struct varstr *p, unsigned extend);
 
-void        varstr_rtrim(struct varstr *p);
+void      varstr_rtrim(struct varstr *p);
 
 /**
  *  @brief Get the pointer to the internal buffer holding the string.
  *  @param[in] p is a struct varstr * created by varstr_new().
  *  @returns a pointer to the internal char * buffer. This should not be modified.
  */
-char       *varstr_str(struct varstr *p);
+char     *varstr_str(struct varstr *p);
 
 /**
  *  @brief Get the string represented by the varstr.
@@ -120,9 +129,9 @@ char       *varstr_str(struct varstr *p);
  *  @param[in] p is a struct varstr * created by varstr_new().
  *  @returns a copy of the string represented by the varstr.
  */
-char       *varstr_to_s(struct varstr *p);
+char     *varstr_to_s(struct varstr *p);
 
-void        varstr_tolower(struct varstr *p);
-void        varstr_toupper(struct varstr *p);
+void      varstr_tolower(struct varstr *p);
+void      varstr_toupper(struct varstr *p);
 
 #endif
