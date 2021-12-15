@@ -1,6 +1,6 @@
 /**
  * @file tinyhelp.h
- * @version 0.1.0
+ * @version 0.2.0
  * @see https://github.com/crowja/tinyhelp
  * @date Sun Feb 16, 2020 11:18:06 PM CST
  * @copyright 2020 John A. Crow <crowja@gmail.com>
@@ -45,13 +45,51 @@
 static int
 doubles_are_close(double x, double y, double tol)
 {
-   return fabs(x - y) <= fabs(tol) ? 1 : 0;
+   return fabs(x - y) > fabs(tol) ? 0 : 1;
 }
 
 static int
 doubles_are_equal(double x, double y)
 {
    return doubles_are_close(x, y, 2 * DBL_EPSILON);
+}
+
+static int
+files_are_equal(char *fn1, char *fn2)
+{
+   FILE     *in1 = fopen(fn1, "r");
+   FILE     *in2 = fopen(fn2, "r");
+   int       rc = 0;
+
+   if (NULL == in1) {
+      if (NULL != in2)
+         fclose(in2);
+   }
+
+   else if (NULL == in2)
+      fclose(in1);
+
+   else {
+      for (;;) {
+         int       c1 = fgetc(in1);
+         int       c2 = fgetc(in2);
+
+         if (c1 != c2)
+            goto DONE;
+
+         if (EOF == c1)
+            break;
+      }
+
+      rc = 1;
+
+    DONE:
+
+      fclose(in1);
+      fclose(in2);
+   }
+
+   return rc;
 }
 
 static void
@@ -67,5 +105,6 @@ fprintf_test_info(FILE *out, char *name, const char *info)
 
 #define ASSERT_DOUBLE_EQUALS(expected, actual) ASSERT((#actual), 1 == doubles_are_equal((expected), (actual)))
 #define ASSERT_DOUBLE_CLOSE(expected, actual, tol) ASSERT((#actual), 1 == doubles_are_close((expected), (actual), (tol)))
+#define ASSERT_FILE_EQUALS(expected, actual) ASSERT((#actual " and " #expected), 1 == files_are_equal((expected), (actual)))
 
 #endif

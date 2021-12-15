@@ -22,7 +22,7 @@ static void
 test_cat_str(void)
 {
    struct varstr *z = varstr_new();
-   char        x[] = "Now is the time for all good hounds";
+   char      x[] = "Now is the time for all good hounds";
 
    fprintf_test_info(stdout, "test_cat_str", "varstr_cat, varstr_str");
    varstr_cat(z, x);
@@ -35,10 +35,10 @@ static void
 test_cat_to_s_cat(void)
 {
    struct varstr *z = varstr_new();
-   char        x[] = "Now is the time for all good hounds";
-   char        x2[] =
+   char      x[] = "Now is the time for all good hounds";
+   char      x2[] =
     "Now is the time for all good houndsNow is the time for all good hounds";
-   char       *cp;
+   char     *cp;
 
    fprintf_test_info(stdout, "test_cat_to_s_cat", "varstr_cat, var_to_s, varstr_str");
    varstr_cat(z, x);
@@ -54,8 +54,8 @@ static void
 test_rtrim(void)
 {
    struct varstr *z = varstr_new();
-   char        x1[] = "Now is the time for all good hounds   \n\n";
-   char        x2[] = "Now is the time for all good hounds";
+   char      x1[] = "Now is the time for all good hounds   \n\n";
+   char      x2[] = "Now is the time for all good hounds";
 
    fprintf_test_info(stdout, "test_rtrim", "varstr_rtrim");
    varstr_cat(z, x1);
@@ -70,7 +70,7 @@ static void
 test_rtrim_empty(void)
 {
    struct varstr *z = varstr_new();
-   char        x[] = "   \t\t \n\n\t                 \n\n";
+   char      x[] = "   \t\t \n\n\t                 \n\n";
 
    fprintf_test_info(stdout, "test_rtrim_empty", "varstr_rtrim");
    varstr_cat(z, x);
@@ -97,8 +97,8 @@ static void
 test_ltrim(void)
 {
    struct varstr *z = varstr_new();
-   char        x1[] = "\t   \n Now is the time for all good hounds";
-   char        x2[] = "Now is the time for all good hounds";
+   char      x1[] = "\t   \n Now is the time for all good hounds";
+   char      x2[] = "Now is the time for all good hounds";
 
    fprintf_test_info(stdout, "test_ltrim", "varstr_ltrim");
    varstr_cat(z, x1);
@@ -113,7 +113,7 @@ static void
 test_ltrim_empty(void)
 {
    struct varstr *z = varstr_new();
-   char        x[] = "   \t\t \n\n\t                 \n\n";
+   char      x[] = "   \t\t \n\n\t                 \n\n";
 
    fprintf_test_info(stdout, "test_ltrim_empty", "varstr_ltrim");
    varstr_cat(z, x);
@@ -140,8 +140,8 @@ static void
 test_catc(void)
 {
    struct varstr *z;
-   char        x[] = " a b c defghij\n k lmnopq r s t u v w x y z . . .";
-   int         i, len = sizeof(x);
+   char      x[] = " a b c defghij\n k lmnopq r s t u v w x y z . . .";
+   int       i, len = sizeof(x);
 
    fprintf_test_info(stdout, "test_stub", "varstr_catc");
 
@@ -157,8 +157,8 @@ static void
 test_compact(void)
 {
    struct varstr *z;
-   char        x1[] = "\f\vabc\t   def\r ghi\n\n\n jkl     ";
-   char        x2[] = "abcdefghijkl";
+   char      x1[] = "\f\vabc\t   def\r ghi\n\n\n jkl     ";
+   char      x2[] = "abcdefghijkl";
 
    fprintf_test_info(stdout, "test_compact", "varstr_compact");
    z = varstr_new();
@@ -173,7 +173,7 @@ static void
 test_compact_null(void)
 {
    struct varstr *z;
-   char        x[] = "";
+   char      x[] = "";
 
    fprintf_test_info(stdout, "test_compact_null", "varstr_compact");
    z = varstr_new();
@@ -187,8 +187,8 @@ static void
 test_change_case(void)
 {
    struct varstr *z;
-   char        x1[] = "12345xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\t\n*";
-   char        x2[] = "12345XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\t\n*";
+   char      x1[] = "12345xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\t\n*";
+   char      x2[] = "12345XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\t\n*";
 
    fprintf_test_info(stdout, "test_change_case", "varstr_tolower, varstr_toupper");
    z = varstr_new();

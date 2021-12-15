@@ -12,9 +12,9 @@ static void
 test_build(void)
 {
    struct varstr *z;
-   char        buf[MAX_CHUNK_SIZE];
-   int         i;
-   unsigned    total = 0;
+   char      buf[MAX_CHUNK_SIZE];
+   int       i;
+   unsigned  total = 0;
 
    fprintf_test_info(stdout, "test_build", "varstr_cat, varstr_empty");
 
@@ -22,10 +22,10 @@ test_build(void)
    ASSERT("Constructor test", z);
 
    for (i = 0; i < MAX_ITERATIONS; i++) {
-      double      u = rand() / RAND_MAX;
+      double    u = rand() / RAND_MAX;
       if (u < 0.5) {                             /* tack on a random length string */
-         int         j;
-         int         len = rand() % MAX_CHUNK_SIZE;
+         int       j;
+         int       len = rand() % MAX_CHUNK_SIZE;
          for (j = 0; j < len; j++)
             buf[j] = 'a';
          buf[len] = '\0';
@@ -56,8 +56,8 @@ static void
 test_rtrimmer(void)
 {
    struct varstr *z;
-   char        buf[MAX_CHUNK_SIZE];
-   int         i;
+   char      buf[MAX_CHUNK_SIZE];
+   int       i;
 
    fprintf_test_info(stdout, "test_rtrimmer", "varstr_cat, varstr_empty, varstr_rtrim");
 
@@ -65,8 +65,8 @@ test_rtrimmer(void)
    ASSERT("Constructor test", z);
 
    for (i = 0; i < MAX_ITERATIONS; i++) {
-      int         j;
-      int         right = rand() % 4;
+      int       j;
+      int       right = rand() % 4;
       for (j = 0; j < 4; j++)
          buf[j] = 'a';
       for (j = right; j < 4; j++)
@@ -83,9 +83,9 @@ test_rtrimmer(void)
    }
 
    for (i = 0; i < MAX_ITERATIONS; i++) {
-      int         j;
+      int       j;
       /* int right = rand() % MAX_CHUNK_SIZE; */
-      int         right = rand() % (MAX_CHUNK_SIZE - 1);
+      int       right = rand() % (MAX_CHUNK_SIZE - 1);
       for (j = 0; j < MAX_CHUNK_SIZE; j++)
          buf[j] = 'a';
       for (j = right; j < MAX_CHUNK_SIZE - 1; j++)
